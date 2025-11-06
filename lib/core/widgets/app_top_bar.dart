@@ -4,16 +4,10 @@ import '../theming/colors.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final String username;
-  final double balance;
-  final VoidCallback? onRefresh;
 
   const AppTopBar({
     super.key,
     required this.title,
-    required this.username,
-    required this.balance,
-    this.onRefresh,
   });
 
   @override

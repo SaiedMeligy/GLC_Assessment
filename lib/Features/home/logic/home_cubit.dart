@@ -50,21 +50,4 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> refreshBalance() async {
-    if (state is HomeLoaded) {
-      emit(HomeLoading());
-      final s = state as HomeLoaded;
-      final newBalance = s.balance + 0.01;
-      await _repo.setBalance(newBalance);
-      emit(HomeLoaded(balance: newBalance, username: s.username, services: s.services));
-    }
-  }
-
-  Future<void> changeUsername(String name) async {
-    await _repo.setUsername(name);
-    if (state is HomeLoaded) {
-      final s = state as HomeLoaded;
-      emit(HomeLoaded(balance: s.balance, username: name, services: s.services));
-    }
-  }
 }

@@ -34,16 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(child: Text('Error: ${state.message}'));
         } else if (state is HomeLoaded) {
           final balance = state.balance;
-          final username = state.username;
           final services = state.services;
 
           return Scaffold(
             backgroundColor: Colors.grey.shade100,
             appBar: AppTopBar(
               title: 'Vodafone Cash',
-              username: username,
-              balance: balance,
-              onRefresh: () => context.read<HomeCubit>().refreshBalance(),
             ),
             body: SafeArea(
               child: SingleChildScrollView(
