@@ -35,17 +35,14 @@ class HomeCubit extends Cubit<HomeState> {
         ServiceItem(id: 'atm_transactions', title: 'ATM Transactions', icon: Icons.atm),
       ];
 
-      // Seed default data if cache is empty or outdated
       if (services.isEmpty || services.length < defaultServices.length) {
         await _repo.setServices(defaultServices);
         if (services.isEmpty) {
           await _repo.setBalance(1.48);
           await _repo.setUsername("أحمد");
-          // Update local variables after seeding
           balance = 1.48;
           username = "أحمد";
         }
-        // Reload services after seeding
         services = await _repo.getServices();
       }
 
