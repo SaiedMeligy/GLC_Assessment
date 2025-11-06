@@ -12,22 +12,10 @@ class ServiceItem {
   });
 
   factory ServiceItem.fromJson(Map<String, dynamic> json) {
-    final dynamic rawIcon = json['icon'];
-    IconData resolvedIcon;
-    if (rawIcon is Map<String, dynamic>) {
-      resolvedIcon = IconData(
-        rawIcon['codePoint'] as int,
-        fontFamily: rawIcon['fontFamily'] as String?,
-        fontPackage: rawIcon['fontPackage'] as String?,
-        matchTextDirection: (rawIcon['matchTextDirection'] as bool?) ?? false,
-      );
-    } else {
-      resolvedIcon = _iconForId(json['id'] as String? ?? '');
-    }
     return ServiceItem(
       id: json['id'],
       title: json['title'],
-      icon: resolvedIcon,
+      icon: _iconForId(json['id'] as String? ?? ''),
     );
   }
 
@@ -35,12 +23,6 @@ class ServiceItem {
     return {
       'id': id,
       'title': title,
-      'icon': {
-        'codePoint': icon.codePoint,
-        'fontFamily': icon.fontFamily,
-        'fontPackage': icon.fontPackage,
-        'matchTextDirection': icon.matchTextDirection,
-      }
     };
   }
 }
