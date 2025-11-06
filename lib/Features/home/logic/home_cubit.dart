@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/network/local/cach_repository.dart';
 import '../data/models/service_item.dart';
@@ -17,12 +16,10 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoading());
     
     try {
-      // Load from cache first (works offline)
       double balance = await _repo.getBalance();
       String username = await _repo.getUsername();
       List<ServiceItem> services = await _repo.getServices();
       
-      // Define default services for seeding
       final defaultServices = [
         ServiceItem(id: 'electric', title: 'Electricity', icon: Icons.electrical_services),
         ServiceItem(id: 'schools', title: 'Schools', icon: Icons.menu_book_outlined),
@@ -52,14 +49,12 @@ class HomeCubit extends Cubit<HomeState> {
         services = await _repo.getServices();
       }
 
-      // Emit HomeLoaded state with final data
       emit(HomeLoaded(
         balance: balance,
         username: username,
         services: services,
       ));
     } catch (e) {
-      // Fallback: try to load from cache even if seeding failed
       try {
         final fallbackBalance = await _repo.getBalance();
         final fallbackUsername = await _repo.getUsername();
